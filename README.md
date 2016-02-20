@@ -19,4 +19,14 @@ That's an extreme case, of course, where all the work needs to be done by the pr
 
 Note that they're not assigned anywhere.  Each range object is stored and managed internally as part of the class.
 
+## Usage
+
+At least for expected cases, all anyone should need to know is...
+
+    CreditCardType CreditCardRange.ValidateCardNumber(String creditCardNumber)
+
+Give it the credit card number and it returns a member of the enumerated type representing the issuer, making sure the number conforms to the [Luhn algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm), if specified.
+
+Note one critical point:  The class automatically orders the Issuer Identification Number Ranges (IINs) from most specific to least.  So, for example, [Visa](https://usa.visa.com/) has the range of numbers starting with a `4-`.  If, some day, through the magic of mergers, acquisitions, and trades, some obscure company (we can call them "Potlatch") ends up with all cards starting with `498765-`, the _CreditCardRange_ class will check the Potlatch cards first, so that Visa doesn't prevent them from getting recognized.
+
 
