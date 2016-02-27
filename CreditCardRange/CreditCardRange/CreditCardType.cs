@@ -1,43 +1,49 @@
+//-----------------------------------------------------------------------
+// <copyright file="CreditCardType.cs" company="Colagioia Industries">
+//     Provided under the terms of the AGPL v3.
+// </copyright>
+//-----------------------------------------------------------------------
+
 /// <summary>
 /// Credit card type.
 /// </summary>
 namespace CreditCardProcessing
 {
-	using System.ComponentModel;
+    using System.ComponentModel;
 
-	/// <summary>
-	/// Credit card type.
-	/// </summary>
+    /// <summary>
+    /// Credit card type.
+    /// </summary>
     public enum CreditCardType
     {
-		/// <summary>
-		/// Unknown issuers.
-		/// </summary>
-		[Description("Unknown Issuer")]
+        /// <summary>
+        /// Unknown issuers.
+        /// </summary>
+        [Description("Unknown Issuer")]
         Unknown,
 
-		/// <summary>
-		/// American Express.
-		/// </summary>
-		[Description("American Express")]
-		AmEx,
+        /// <summary>
+        /// American Express cards.
+        /// </summary>
+        [Description("American Express")]
+        AmEx,
 
-		/// <summary>
-		/// Discover Card.
-		/// </summary>
-		[Description("Discover Card")]
-		Discover,
+        /// <summary>
+        /// Discover Card cards.
+        /// </summary>
+        [Description("Discover Card")]
+        Discover,
 
-		/// <summary>
-		/// Master Card.
-		/// </summary>
-		[Description("MasterCard")]
-		MasterCard,
+        /// <summary>
+        /// MasterCard cards.
+        /// </summary>
+        [Description("MasterCard")]
+        MasterCard,
 
-		/// <summary>
-		/// Visa.
-		/// </summary>
-		[Description("Visa")]
-		Visa,
+        /// <summary>
+        /// Visa cards.
+        /// </summary>
+        [Description("Visa")]
+        Visa,
     }
 }
