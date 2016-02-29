@@ -16,7 +16,7 @@ namespace CreditCardProcessing
         /// <summary>
         /// The issuer card number ranges.
         /// </summary>
-        private static List<CreditCardRange> Ranges = new List<CreditCardRange>();
+        private static List<CreditCardRange> ranges = new List<CreditCardRange>();
 
         /// <summary>
         /// Whether the system uses the Luhn checksum for any card numbers.
@@ -28,18 +28,18 @@ namespace CreditCardProcessing
         /// </summary>
         public CreditCardRange()
         {
-            Issuer = CreditCardType.Unknown;
-            RangeActive = true;
-            UsesLuhn = true;
-            Lengths = new List<int>();
-            Ranges.Add(this);
+            this.Issuer = CreditCardType.Unknown;
+            this.RangeActive = true;
+            this.UsesLuhn = true;
+            this.Lengths = new List<int>();
+            ranges.Add(this);
         }
 
         /// <summary>
         /// Gets or sets this instance's issuer name.
         /// </summary>
         /// <value>The name of the card's issuer.</value>
-        public String IssuerName { get; set; }
+        public string IssuerName { get; set; }
 
         /// <summary>
         /// Gets or sets this instance's issuer.
@@ -49,14 +49,15 @@ namespace CreditCardProcessing
         {
             get
             {
-                return issuer;
+                return this.issuer;
             }
+
             set
             {
-                issuer = value;
-                if (value != CreditCardType.Unknown && String.IsNullOrWhiteSpace(IssuerName))
+                this.issuer = value;
+                if (value != CreditCardType.Unknown && string.IsNullOrWhiteSpace(this.IssuerName))
                 {
-                    IssuerName = issuer.ToString();
+                    this.IssuerName = this.issuer.ToString();
                 }
             }
         }
@@ -65,23 +66,23 @@ namespace CreditCardProcessing
         /// Sets the number prefix ranges.
         /// </summary>
         /// <value>The number prefix ranges, as a comma-delimited list.</value>
-        public String Numbers
+        public string Numbers
         {
             set
             {
-                if (RangeNumbers == null)
+                if (this.RangeNumbers == null)
                 {
-                    RangeNumbers = new List<string>();
+                    this.RangeNumbers = new List<string>();
                 }
 
-                RangeNumbers.Clear();
-                foreach(var range in value.Split(','))
+                this.RangeNumbers.Clear();
+                foreach (var range in value.Split(','))
                 {
                     var extremes = range.Trim().Split('-');
                     if (extremes.Length == 1)
                     {
                         // Not a range
-                        RangeNumbers.Add(extremes[0]);
+                        this.RangeNumbers.Add(extremes[0]);
                         continue;
                     }
 
@@ -96,7 +97,7 @@ namespace CreditCardProcessing
 
                     for (int i = low; i <= high; i++)
                     {
-                        RangeNumbers.Add(i.ToString());
+                        this.RangeNumbers.Add(i.ToString());
                     }
                 }
             }
@@ -122,7 +123,7 @@ namespace CreditCardProcessing
         {
             get
             {
-                return Issuer != CreditCardType.Unknown;
+                return this.Issuer != CreditCardType.Unknown;
             }
         }
 
@@ -140,7 +141,7 @@ namespace CreditCardProcessing
         /// <summary>
         /// The range numbers.
         /// </summary>
-        private List<String> RangeNumbers;
+        private List<string> RangeNumbers;
 
         /// <summary>
         /// Validate the card number's structure, with information on the best match.
@@ -148,19 +149,19 @@ namespace CreditCardProcessing
         /// <returns><c>true</c>, if the number is valid, <c>false</c> otherwise.</returns>
         /// <param name="creditCardNumber">Credit card number.</param>
         /// <param name="length">The length of the longest prefix matched. (Output)</param>
-        public bool LengthIdentify(String creditCardNumber, out int length)
+        public bool LengthIdentify(string creditCardNumber, out int length)
         {
             int maxLength = 0;
 
             // Skip if nobody cares
-            if (!RangeActive)
+            if (!this.RangeActive)
             {
                 length = 0;
                 return false;
             }
 
             // Check the possibilities
-            foreach (String num in RangeNumbers)
+            foreach (string num in this.RangeNumbers)
             {
                 if (creditCardNumber.StartsWith(num) && num.Length > maxLength)
                 {
@@ -169,13 +170,13 @@ namespace CreditCardProcessing
             }
 
             // Validate number structure
-            if (!Lengths.Contains(creditCardNumber.Length) || (UseLuhn && !VerifyCreditCardNumberByLuhn(creditCardNumber)))
+            if (!this.Lengths.Contains(creditCardNumber.Length) || (UseLuhn && !VerifyCreditCardNumberByLuhn(creditCardNumber)))
             {
                 maxLength = 0;
             }
 
             length = maxLength;
-            return IssuerAccepted;
+            return this.IssuerAccepted;
         }
 
         /// <summary>
@@ -183,7 +184,7 @@ namespace CreditCardProcessing
         /// </summary>
         public static void Clear()
         {
-            Ranges.Clear();
+            ranges.Clear();
         }
 
         /// <summary>
@@ -191,12 +192,12 @@ namespace CreditCardProcessing
         /// </summary>
         /// <returns>The card issuer.</returns>
         /// <param name="creditCardNumber">Credit card number.</param>
-        public static CreditCardType ValidateCardNumber(String creditCardNumber)
+        public static CreditCardType ValidateCardNumber(string creditCardNumber)
         {
             CreditCardType type = CreditCardType.Unknown;
             int maxLength = 0;
 
-            foreach (CreditCardRange range in Ranges)
+            foreach (CreditCardRange range in ranges)
             {
                 int length;
                 bool success = range.LengthIdentify(creditCardNumber, out length);
@@ -216,14 +217,14 @@ namespace CreditCardProcessing
         /// </summary>
         /// <returns><c>true</c>, if credit card number by the Luhn checksum was verified, <c>false</c> otherwise.</returns>
         /// <param name="creditCardNumber">Credit card number.</param>
-        private static bool VerifyCreditCardNumberByLuhn(String creditCardNumber)
+        private static bool VerifyCreditCardNumberByLuhn(string creditCardNumber)
         {
             int total = 0;
 
             for (int i = creditCardNumber.Length - 2; i > -1; i--)
             {
                 char c = creditCardNumber[i];
-                int val = (int)(char.GetNumericValue(c));
+                int val = (int)char.GetNumericValue(c);
                 if ((creditCardNumber.Length - i) % 2 == 0)
                 {
                     // Double every other digit
