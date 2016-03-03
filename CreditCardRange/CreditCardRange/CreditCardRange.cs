@@ -14,6 +14,16 @@ namespace CreditCardProcessing
     public class CreditCardRange
     {
         /// <summary>
+        /// The ranges.
+        /// </summary>
+        private static List<CreditCardRange> ranges = new List<CreditCardRange>();
+
+        /// <summary>
+        /// Flag on whether to use Luhn checksums.
+        /// </summary>
+        private static bool useLuhn = false;
+
+        /// <summary>
         /// The issuer.
         /// </summary>
         private CreditCardType issuer;
@@ -33,6 +43,23 @@ namespace CreditCardProcessing
             this.UsesLuhn = true;
             this.Lengths = new List<int>();
             ranges.Add(this);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="CreditCardProcessing.CreditCardRange"/> uses Luhn checksums.
+        /// </summary>
+        /// <value><c>true</c> if it uses Luhn; otherwise, <c>false</c>.</value>
+        public static bool UseLuhn
+        {
+            get
+            {
+                return useLuhn;
+            }
+
+            set
+            {
+                useLuhn = value;
+            }
         }
 
         /// <summary>
