@@ -181,9 +181,9 @@ namespace CreditCardProcessing
             foreach (CreditCardRange range in ranges)
             {
                 int length;
-                bool success = range.LengthIdentify(creditCardNumber, out length);
+                bool accepted = range.LengthIdentify(creditCardNumber, out length);
 
-                if (length > maxLength)
+                if (accepted && length > maxLength)
                 {
                     maxLength = length;
                     type = range.Issuer;
