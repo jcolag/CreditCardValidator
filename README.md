@@ -12,12 +12,26 @@ As mentioned, credit cards types are mostly declarative.  For example, old (obso
     new CreditCardRange() { "Bankcard", CreditCardType.Bankcard,
         "5610,560221-560225", { 16 }, false, true, true };
 
-That's an extreme case, of course, where all the work needs to be done by the programmer.  If the card name can be derived from the enumerated type and the flags' defaults are correct:
+That's an extreme case, of course, where all the work needs to be done by the programmer.  If the card name can be derived from the enumerated type and the flags' defaults are correct.  For example, the four major carriers in the United States:
 
-    new CreditCardRange() { Issuer = CreditCardType.Visa, Numbers = "4",
-        Lengths = { 16 } }
+    new CreditCardRange () { Issuer = CreditCardType.AmEx, Numbers = "34,37", Lengths = { 15 } };
+    new CreditCardRange () { Issuer = CreditCardType.Visa, Numbers = "4", Lengths = { 16 } };
+    new CreditCardRange () {
+        Issuer = CreditCardType.MasterCard,
+        Numbers = "51-55",
+        Lengths = { 16 }
+    };
+    new CreditCardRange () {
+        Issuer = CreditCardType.Discover,
+        Numbers = "6011,622126-622925,644-649,65",
+        Lengths = { 16 }
+    };
 
-Note that they're not assigned anywhere.  Each range object is stored and managed internally as part of the class.
+Note that the range objects aren't _assigned_ anywhere.  Each object is stored and managed internally as part of the class.
+
+### Sources
+
+Apart from the issuers themselves, an obvious place to mine for updates to credit card numbers is the Wikipedia page on [Bank Card Numbers](https://en.wikipedia.org/wiki/Bank_card_number).  Knowing the "new" (effective 2008!) Discover Card issuer ranges is like wizardry, in most circles.
 
 ## Usage
 
