@@ -169,6 +169,101 @@ namespace CreditCardProcessing
         }
 
         /// <summary>
+        /// Creates all credit card types known as of 2016 March 06 as defaults.
+        /// </summary>
+        public static void CreateDefaults()
+        {
+            new CreditCardRange { Issuer = CreditCardType.AmEx, Numbers = "34,37", Lengths = { 15 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Bankcard,
+                Numbers = "5610,560221-560225",
+                Lengths = { 16 },
+                RangeActive = false
+            };
+            new CreditCardRange { Issuer = CreditCardType.ChinaUnionPay, Numbers = "62", Lengths = { 16 } };
+            new CreditCardRange { Issuer = CreditCardType.DCCarteBlanche, Numbers = "300-305", Lengths = { 14 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.DCEnRoute,
+                Numbers = "2014,2149",
+                Lengths = { 15 },
+                RangeActive = false,
+                UseLuhn = false
+            };
+            new CreditCardRange { Issuer = CreditCardType.DCInternational, Numbers = "309,36,38,39", Lengths = { 14 } };
+            new CreditCardRange { Issuer = CreditCardType.DCUSCan, Numbers = "54,55", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Discover,
+                Numbers = "6011,622126-622925,644-649,65",
+                Lengths =
+                {
+                    16,
+                    19
+                }
+            };
+            new CreditCardRange { Issuer = CreditCardType.InterPayment, Numbers = "636", Lengths = { 16, 17, 18, 19 } };
+            new CreditCardRange { Issuer = CreditCardType.InstaPayment, Numbers = "637-639", Lengths = { 16 } };
+            new CreditCardRange { Issuer = CreditCardType.JCB, Numbers = "3528-3589", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Laser,
+                Numbers = "6304,6706,6771,6709",
+                Lengths = { 16, 17, 18, 19 },
+                RangeActive = false
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Maestro,
+                Numbers = "56-69",
+                Lengths =
+                {
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19
+                }
+            };
+            new CreditCardRange { Issuer = CreditCardType.Dankort, Numbers = "4175,4571,5019", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.MasterCard,
+                Numbers = "2221-2720",
+                Lengths = { 16 },
+                RangeActive = false
+            };
+            new CreditCardRange { Issuer = CreditCardType.MasterCard, Numbers = "51-55", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Solo,
+                Numbers = "6334,6767",
+                Lengths = { 16, 18, 19 },
+                RangeActive = false
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Switch,
+                Numbers = "4903,4905,4911,4936,564182,633110,6333,6759",
+                Lengths =
+                {
+                    16,
+                    18,
+                    19
+                },
+                RangeActive = false
+            };
+            new CreditCardRange { Issuer = CreditCardType.Visa, Numbers = "4", Lengths = { 13, 16, 19 } };
+            new CreditCardRange { Issuer = CreditCardType.UATP, Numbers = "1", Lengths = { 15 } };
+            new CreditCardRange { Issuer = CreditCardType.Verve, Numbers = "506099-506198,650002-650027", Lengths = { 16, 19 } };
+            new CreditCardRange { Issuer = CreditCardType.Cardguard, Numbers = "5392", Lengths = { 16 } };
+        }
+
+        /// <summary>
         /// Validates the card number.
         /// </summary>
         /// <returns>The card issuer.</returns>
