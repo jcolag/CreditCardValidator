@@ -42,6 +42,7 @@ namespace CreditCardProcessing
             this.RangeActive = true;
             this.UsesLuhn = true;
             this.Lengths = new List<int>();
+            this.IssuerAccepted = true;
             ranges.Add(this);
         }
 
@@ -143,16 +144,10 @@ namespace CreditCardProcessing
         public bool RangeActive { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this instance issuer is accepted.
+        /// Gets or sets a value indicating whether this instance issuer is accepted.
         /// </summary>
         /// <value><c>true</c> if this instance issuer is accepted by the vendor; otherwise, <c>false</c>.</value>
-        public bool IssuerAccepted
-        {
-            get
-            {
-                return this.Issuer != CreditCardType.Unknown;
-            }
-        }
+        public bool IssuerAccepted { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="CreditCardProcessing.CreditCardRange"/> uses Luhn.
@@ -171,28 +166,61 @@ namespace CreditCardProcessing
         /// <summary>
         /// Creates all credit card types known as of 2016 March 06 as defaults.
         /// </summary>
-        public static void CreateDefaults()
+        /// <param name="acceptedTypes">Accepted types.</param>
+        public static void CreateDefaults(List<CreditCardType> acceptedTypes = null)
         {
-            new CreditCardRange { Issuer = CreditCardType.AmEx, Numbers = "34,37", Lengths = { 15 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.AmEx,
+                Numbers = "34,37",
+                Lengths = { 15 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.AmEx),
+            };
             new CreditCardRange
             {
                 Issuer = CreditCardType.Bankcard,
                 Numbers = "5610,560221-560225",
                 Lengths = { 16 },
-                RangeActive = false
+                RangeActive = false,
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Bankcard),
             };
-            new CreditCardRange { Issuer = CreditCardType.ChinaUnionPay, Numbers = "62", Lengths = { 16 } };
-            new CreditCardRange { Issuer = CreditCardType.DCCarteBlanche, Numbers = "300-305", Lengths = { 14 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.ChinaUnionPay,
+                Numbers = "62",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.ChinaUnionPay),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.DCCarteBlanche,
+                Numbers = "300-305",
+                Lengths = { 14 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.DCCarteBlanche),
+            };
             new CreditCardRange
             {
                 Issuer = CreditCardType.DCEnRoute,
                 Numbers = "2014,2149",
                 Lengths = { 15 },
                 RangeActive = false,
-                UseLuhn = false
+                UsesLuhn = false,
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.DCEnRoute),
             };
-            new CreditCardRange { Issuer = CreditCardType.DCInternational, Numbers = "309,36,38,39", Lengths = { 14 } };
-            new CreditCardRange { Issuer = CreditCardType.DCUSCan, Numbers = "54,55", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.DCInternational,
+                Numbers = "309,36,38,39",
+                Lengths = { 14 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.DCInternational),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.DCUSCan,
+                Numbers = "54,55",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.DCUSCan),
+            };
             new CreditCardRange
             {
                 Issuer = CreditCardType.Discover,
@@ -200,18 +228,38 @@ namespace CreditCardProcessing
                 Lengths =
                 {
                     16,
-                    19
-                }
+                    19,
+                },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Discover),
             };
-            new CreditCardRange { Issuer = CreditCardType.InterPayment, Numbers = "636", Lengths = { 16, 17, 18, 19 } };
-            new CreditCardRange { Issuer = CreditCardType.InstaPayment, Numbers = "637-639", Lengths = { 16 } };
-            new CreditCardRange { Issuer = CreditCardType.JCB, Numbers = "3528-3589", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.InterPayment,
+                Numbers = "636",
+                Lengths = { 16, 17, 18, 19 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.InterPayment),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.InstaPayment,
+                Numbers = "637-639",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.InstaPayment),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.JCB,
+                Numbers = "3528-3589",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.JCB),
+            };
             new CreditCardRange
             {
                 Issuer = CreditCardType.Laser,
                 Numbers = "6304,6706,6771,6709",
                 Lengths = { 16, 17, 18, 19 },
-                RangeActive = false
+                RangeActive = false,
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Laser),
             };
             new CreditCardRange
             {
@@ -226,24 +274,39 @@ namespace CreditCardProcessing
                     16,
                     17,
                     18,
-                    19
-                }
+                    19,
+                },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Maestro),
             };
-            new CreditCardRange { Issuer = CreditCardType.Dankort, Numbers = "4175,4571,5019", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Dankort,
+                Numbers = "4175,4571,5019",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Dankort),
+            };
             new CreditCardRange
             {
                 Issuer = CreditCardType.MasterCard,
                 Numbers = "2221-2720",
                 Lengths = { 16 },
-                RangeActive = false
+                RangeActive = false,
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.MasterCard),
             };
-            new CreditCardRange { Issuer = CreditCardType.MasterCard, Numbers = "51-55", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.MasterCard,
+                Numbers = "51-55",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.MasterCard),
+            };
             new CreditCardRange
             {
                 Issuer = CreditCardType.Solo,
                 Numbers = "6334,6767",
                 Lengths = { 16, 18, 19 },
-                RangeActive = false
+                RangeActive = false,
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Solo),
             };
             new CreditCardRange
             {
@@ -253,14 +316,39 @@ namespace CreditCardProcessing
                 {
                     16,
                     18,
-                    19
+                    19,
                 },
-                RangeActive = false
+                RangeActive = false,
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Switch),
             };
-            new CreditCardRange { Issuer = CreditCardType.Visa, Numbers = "4", Lengths = { 13, 16, 19 } };
-            new CreditCardRange { Issuer = CreditCardType.UATP, Numbers = "1", Lengths = { 15 } };
-            new CreditCardRange { Issuer = CreditCardType.Verve, Numbers = "506099-506198,650002-650027", Lengths = { 16, 19 } };
-            new CreditCardRange { Issuer = CreditCardType.Cardguard, Numbers = "5392", Lengths = { 16 } };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Visa,
+                Numbers = "4",
+                Lengths = { 13, 16, 19 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Visa),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.UATP,
+                Numbers = "1",
+                Lengths = { 15 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.UATP),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Verve,
+                Numbers = "506099-506198,650002-650027",
+                Lengths = { 16, 19 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Verve),
+            };
+            new CreditCardRange
+            {
+                Issuer = CreditCardType.Cardguard,
+                Numbers = "5392",
+                Lengths = { 16 },
+                IssuerAccepted = acceptedTypes != null || acceptedTypes.Contains(CreditCardType.Cardguard),
+            };
         }
 
         /// <summary>
