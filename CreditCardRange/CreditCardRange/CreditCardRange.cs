@@ -409,7 +409,7 @@ namespace CreditCardProcessing
             }
 
             length = maxLength;
-            return this.IssuerAccepted;
+			return this.IssuerAccepted && this.Issuer != CreditCardType.Unknown;
         }
 
         /// <summary>
