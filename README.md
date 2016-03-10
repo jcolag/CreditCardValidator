@@ -14,14 +14,14 @@ As mentioned, credit cards types are mostly declarative.  For example, old (obso
 
 That's an extreme case, of course, where all the work needs to be done by the programmer.  If the card name can be derived from the enumerated type and the flags' defaults are correct.  For example, the four major carriers in the United States:
 
-    new CreditCardRange () { Issuer = CreditCardType.AmEx, Numbers = "34,37", Lengths = { 15 } };
-    new CreditCardRange () { Issuer = CreditCardType.Visa, Numbers = "4", Lengths = { 16 } };
-    new CreditCardRange () {
+    new CreditCardRange { Issuer = CreditCardType.AmEx, Numbers = "34,37", Lengths = { 15 } };
+    new CreditCardRange { Issuer = CreditCardType.Visa, Numbers = "4", Lengths = { 16 } };
+    new CreditCardRange {
         Issuer = CreditCardType.MasterCard,
         Numbers = "51-55",
         Lengths = { 16 }
     };
-    new CreditCardRange () {
+    new CreditCardRange {
         Issuer = CreditCardType.Discover,
         Numbers = "6011,622126-622925,644-649,65",
         Lengths = { 16 }
@@ -31,7 +31,11 @@ Note that the range objects aren't _assigned_ anywhere.  Each object is stored a
 
 ### Sources
 
-Apart from the issuers themselves, an obvious place to mine for updates to credit card numbers is the Wikipedia page on [Bank Card Numbers](https://en.wikipedia.org/wiki/Bank_card_number).  Knowing the "new" (effective 2008!) Discover Card issuer ranges is like wizardry, in most circles.
+Apart from the issuers themselves, an obvious place to mine for updates to credit card numbers is the Wikipedia page on [Bank Card Numbers](https://en.wikipedia.org/wiki/Bank_card_number), which is the source of all samples and defaults.  Knowing the "new" (effective 2008!) Discover Card issuer ranges is like wizardry, in most circles.
+
+### Quick and Dirty
+
+Want to just load every issuer and deal with everything later?  Make a call to `CreditCardRange.CreateDefaults()`.  It takes an (optional) list of issuers (of enumeration class `CreditCardType`) to enumerate those that you plan to accept.  Note that this means relying on the code to be up to date, which obviously may not be the case.
 
 ## Usage
 
