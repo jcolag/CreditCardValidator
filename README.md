@@ -1,18 +1,19 @@
-# CreditCardValidator
+# Credit Card Validator
+
 First pass on a simple C# implementation to sanity-check credit card numbers.
 
 On a recent project, I thought I was going to need a server-side credit card validator.  I didn't, as it turns out, but I put in a fair amount of thought to how I wanted it to work that it was easy enough to put together in case it's useful in the future.
 
 The intent is to have a module that is more or less defined declaratively and eliminates the risk of comparisons that need to be performed in a specific order.  For any input number, then, the class should be able to identify the credit card issuer (subject to the supplied rules) and---if necessary---verify the checksum.
 
-## Declaration
+## Declarating Issuers
 
 As mentioned, credit cards types are mostly declarative.  For example, old (obsolete) Bankcard would be represented by adding an entry to CreditCardType (if desired; the "Unknown" tag could be sufficient or it may be added in a future version) and simply describing the type.
 
     new CreditCardRange() { "Bankcard", CreditCardType.Bankcard,
         "5610,560221-560225", { 16 }, false, true, true };
 
-That's an extreme case, of course, where all the work needs to be done by the programmer.  If the card name can be derived from the enumerated type and the flags' defaults are correct.  For example, the four major carriers in the United States:
+That's an extreme case, where all the work needs to be done by the programmer.  If the card name can be derived from the enumerated type and the flags' defaults are correct.  For example, the four major carriers in the United States:
 
     new CreditCardRange { Issuer = CreditCardType.AmEx, Numbers = "34,37", Lengths = { 15 } };
     new CreditCardRange { Issuer = CreditCardType.Visa, Numbers = "4", Lengths = { 16 } };
@@ -35,7 +36,7 @@ Apart from the issuers themselves, an obvious place to mine for updates to credi
 
 ### Quick and Dirty
 
-Want to just load every issuer and deal with everything later?  Make a call to `CreditCardRange.CreateDefaults()`.  It takes an (optional) list of issuers (of enumeration class `CreditCardType`) to enumerate those that you plan to accept.  Note that this means relying on the code to be up to date, which obviously may not be the case.
+Want to just load every known (at this writing) issuer and deal with everything later?  Make a call to `CreditCardRange.CreateDefaults()`.  It takes an (optional) list of issuers (of enumeration class `CreditCardType`) to enumerate those that you plan to accept.  Note that this means relying on the code to be up to date, which obviously may not be the case.
 
 ## Usage
 
