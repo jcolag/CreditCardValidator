@@ -36,7 +36,7 @@ Apart from the issuers themselves, an obvious place to mine for updates to credi
 
 ### Quick and Dirty
 
-Want to just load every known (at this writing) issuer and deal with everything later?  Make a call to `CreditCardRange.CreateDefaults()`.  It takes an (optional) list of issuers (of enumeration class `CreditCardType`) to enumerate those that you plan to accept.  Note that this means relying on the code to be up to date, which may not be the case at any given time, even now.
+Want to just load every known (at this writing) issuer and deal with everything later?  Make a call to `CreditCardRange.CreateDefaults()`.  It takes an (optional) list of issuers (of enumeration class `CreditCardType`) to enumerate those that you plan to accept.  Note that this means relying on the code to be up to date, which may not be the case at any given time, even now; the most recent update was 06 March 2016.
 
 ## Usage
 
