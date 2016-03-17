@@ -165,6 +165,8 @@ namespace CreditCardProcessing
 
         /// <summary>
         /// Creates all credit card types known as of 2016 March 06 as defaults.
+		/// The included number ranges have been adapted from the list at:
+		///     https://en.wikipedia.org/wiki/Bank_card_number
         /// </summary>
         /// <param name="acceptedTypes">Accepted types.</param>
         public static void CreateDefaults(List<CreditCardType> acceptedTypes = null)
