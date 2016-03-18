@@ -6,7 +6,9 @@ On a recent project, I thought I was going to need a server-side credit card val
 
 The intent is to have a module that is more or less defined declaratively and eliminates the risk of comparisons that need to be performed in a specific order.  For any input number, then, the class should be able to identify the credit card issuer (subject to the supplied rules) and---if necessary---verify the checksum.
 
-## Declarating Issuers
+A further intent is to avoid the usual unmaintainable mess of fixed regular expressions that have never been investigated beyond working for the required cases.
+
+## Declaring Issuers
 
 As mentioned, credit cards types are mostly declarative.  For example, old (obsolete) Bankcard would be represented by adding an entry to CreditCardType (if desired; the "Unknown" tag could be sufficient or it may be added in a future version) and simply describing the type.
 
