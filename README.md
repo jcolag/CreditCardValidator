@@ -30,7 +30,7 @@ That's an extreme case, where all the work needs to be done by the programmer.  
         Lengths = { 16 }
     };
 
-Note that the range objects aren't _assigned_ anywhere.  Each object is stored and managed internally as part of the class.
+Note that the range objects aren't _assigned_ anywhere.  Each object is stored and managed internally as part of the class.  You can, though, assign them to variables if they might need to be updated during the run of the program.
 
 ### Sources
 
